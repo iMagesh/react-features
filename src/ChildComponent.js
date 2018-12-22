@@ -1,21 +1,10 @@
-import React from "react";
+import React, { Component } from "react";
 
-// export default props => {
-//   return (
-//     <div>
-//       <h2 className={props.className}>{props.name}</h2>
-//       <p>{props.age}</p>
-//     </div>
-//   );
-// };
+class ChildComponent extends Component {
+  render() {
+    throw new Error("I'm a stupid error");
+    return <div onClick={this.handleClick}>{this.props.details}</div>;
+  }
+}
 
-export default ({ className = "", ...props }) => {
-  let classNames = ["btn", className].join(" ");
-
-  return (
-    <div>
-      <h2 className={classNames}>{props.name}</h2>
-      <p>{props.age}</p>
-    </div>
-  );
-};
+export default ChildComponent;

@@ -1,16 +1,15 @@
 import React, { Component } from "react";
 import ChildComponent from "./ChildComponent";
+import ErrorBoundary from "./ErrorBoundary";
 
-let personDetails = {
-  name: "Rajesh",
-  age: "22",
-  className: "btn"
-};
+let details = ["Hello ", <span>World</span>, "!"];
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <ChildComponent className="btn-primary" {...personDetails} />
+        <ErrorBoundary>
+          <ChildComponent details={details} />
+        </ErrorBoundary>
       </div>
     );
   }
