@@ -1,36 +1,21 @@
 import React from "react";
 
-// destructuring example for object and array
-// let person = { name: "Magesh", bio: "coder and mentor", company: "Hash14" };
-// let { name, bio, company } = person;
+// export default props => {
+//   return (
+//     <div>
+//       <h2 className={props.className}>{props.name}</h2>
+//       <p>{props.age}</p>
+//     </div>
+//   );
+// };
 
-//array
-// let things = ["one", "two"];
-// let [first, second] = things;
+export default ({ className, ...props }) => {
+  let classNames = ["btn", className].join(" ");
 
-export default props => {
   return (
     <div>
-      <h2>{props.name}</h2>
+      <h2 className={classNames}>{props.name}</h2>
       <p>{props.age}</p>
     </div>
   );
 };
-
-// export default ({ name, age }) => {
-//   return (
-//     <div>
-//       <h2>{name}</h2>
-//       <p>{age}</p>
-//     </div>
-//   );
-// };
-
-// export default ({ name, ...rest }) => {
-//   return (
-//     <div>
-//       <h2>{name}</h2>
-//       <p>{rest.age}</p>
-//     </div>
-//   );
-// };
