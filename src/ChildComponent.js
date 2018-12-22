@@ -9,7 +9,7 @@ import React from "react";
 //   );
 // };
 
-export default ({ className, ...props }) => {
+export default ({ className = "", ...props }) => {
   let classNames = ["btn", className].join(" ");
 
   return (
