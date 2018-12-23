@@ -1,10 +1,9 @@
 import React from "react";
 import Loadable from "react-loadable";
 
-const loading = () => <h2>Loading...</h2>;
 const LoadableComponent = Loadable({
   loader: () => import("./ChildComponent"),
-  loading
+  loading: () => <h2>Loading...</h2>
 });
 
 class App extends React.Component {
