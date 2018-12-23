@@ -1,22 +1,34 @@
 import React from "react";
 import Loadable from "react-loadable";
-// import ChildComponent from "./ChildComponent";
 
-const loading = () => <h1>loading split code...</h1>;
-
+const loading = () => <h2>Loading...</h2>;
 const LoadableComponent = Loadable({
   loader: () => import("./ChildComponent"),
   loading
 });
 
 class App extends React.Component {
+  state = {
+    showComponent: false
+  };
+
+  handleClick = event => {
+    this.setState({
+      showComponent: true
+    });
+  };
+
   render() {
-    return (
-      <div>
-        {/* <ChildComponent fromParent="parent data" /> */}
-        <LoadableComponent fromParent="parent data" />
-      </div>
-    );
+    if (this.state.showComponent) {
+      return <LoadableComponent />;
+    } else {
+      return (
+        <React.Fragment>
+          <h1>Hello!</h1>
+          <button onClick={this.handleClick}>Click me!</button>
+        </React.Fragment>
+      );
+    }
   }
 }
 
