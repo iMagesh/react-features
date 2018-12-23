@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import addTheme from "./ThemeHOC";
+import addTheme from "./hoc/ThemeHOC";
 
 class ChildComponent extends Component {
   render() {
