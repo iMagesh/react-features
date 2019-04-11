@@ -1,48 +1,57 @@
 import React from "react";
 import ReactDOM from "react-dom";
-// import PropTypes from "prop-types";
-
-// Instead of using a HOC, we can share code using a
-// regular component with a render prop!
-class Mouse extends React.Component {
-  // static propTypes = {
-  //   render: PropTypes.func.isRequired
-  // };
-
-  state = { x: 0, y: 0 };
-
-  handleMouseMove = event => {
-    this.setState({
-      x: event.clientX,
-      y: event.clientY
-    });
-  };
-
-  render() {
-    return (
-      <div style={{ height: "100%" }} onMouseMove={this.handleMouseMove}>
-        {this.props.render(this.state)}
-      </div>
-    );
-  }
-}
 
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { val: 0 };
+    this.update = this.update.bind(this);
+  }
+
+  componentWillMount() {
+    console.log("Component Will Mount");
+    this.setState({ m: 2 });
+  }
+
+  componentDidMount() {
+    console.log("Component Did Mount");
+  }
+
+  componentWillUnmount() {
+    console.log("Component Will Unmount");
+  }
+
+  update() {
+    this.setState({ val: this.state.val + 1 });
+  }
+
+  render() {
+    console.log("render");
+    return (
+      <button onClick={this.update}>{this.state.val * this.state.m}</button>
+    );
+  }
+}
+
+class Wrapper extends React.Component {
+  mount() {
+    ReactDOM.render(<App />, document.getElementById("a"));
+  }
+
+  unmount() {
+    ReactDOM.unmountComponentAtNode(document.getElementById("a"));
+  }
+
   render() {
     return (
-      <div style={{ height: "100%" }}>
-        <Mouse
-          render={({ x, y }) => (
-            // The render prop gives us the state we need
-            // to render whatever we want here.
-            <h1>
-              The mouse position is ({x}, {y})
-            </h1>
-          )}
-        />
+      <div>
+        <button onClick={this.mount.bind(this)}>Mount</button>
+        <button onClick={this.unmount.bind(this)}>UnMount</button>
       </div>
     );
   }
 }
 
-ReactDOM.render(<App />, document.getElementById("root"));
+export default Wrapper;
+
+ReactDOM.render(<Wrapper />, document.getElementById("root"));
