@@ -15,10 +15,16 @@ class App extends React.Component {
 
   componentDidMount() {
     console.log("Component Did Mount");
+    console.log(ReactDOM.findDOMNode(this));
+
+    // lets try setting something that can be cleaned up in unMount later
+    this.inc = setInterval(this.update, 500);
+    //click on unmount and above will throw error in console if you don't cleaned it during unmount
   }
 
   componentWillUnmount() {
     console.log("Component Will Unmount");
+    clearInterval(this.inc); // without this there will be an error in the console when you try to unmount
   }
 
   update() {
