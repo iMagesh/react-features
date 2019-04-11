@@ -1,35 +1,43 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import "./App.css";
 
 class App extends React.Component {
   constructor(props) {
-    super(props);
-    this.state = { increasing: false };
+    super();
+    this.state = {
+      input: "/* add your jsx here */",
+      output: "",
+      err: ""
+    };
   }
 
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    this.setState({ increasing: nextProps.val > this.props.val });
+  update(e) {
+    let code = e.target.value;
+    try {
+      this.setState({
+        output: window.Babel.transform(code, { presets: ["es2015", "react"] })
+          .code,
+        err: ""
+      });
+    } catch (error) {
+      this.setState({ err: error.message });
+    }
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    return nextProps.val % 5 === 0;
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    console.log(`prevProps: ${prevProps.val}`);
-    console.log(prevState);
-    console.log(this.state);
-  }
-
-  update() {
-    ReactDOM.render(
-      <App val={this.props.val + 1} />,
-      document.getElementById("root")
-    );
-  }
   render() {
-    console.log(this.state.increasing);
-    return <button onClick={this.update.bind(this)}>{this.props.val}</button>;
+    return (
+      <div>
+        <header>{this.state.err}</header>
+        <div className="container">
+          <textarea
+            onChange={this.update.bind(this)}
+            defaultValue={this.state.input}
+          />
+          <pre>{this.state.output}</pre>
+        </div>
+      </div>
+    );
   }
 }
 
